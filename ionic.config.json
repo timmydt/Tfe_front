@@ -1,0 +1,7 @@
+{
+  "name": "tfe_front",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
