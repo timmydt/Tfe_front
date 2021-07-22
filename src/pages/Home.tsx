@@ -39,7 +39,7 @@ const Home: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonItemDivider>Connexion</IonItemDivider>
+        <IonItemDivider>Connexion (TEST SI SA MARCHENT)</IonItemDivider>
         <IonItem>
           <IonInput
             value={username}
