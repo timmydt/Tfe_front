@@ -9,6 +9,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import React from "react";
 import { useState } from "react";
 import "./Home.css";
 import axios from "axios";
@@ -33,7 +34,6 @@ const Home: React.FC = () => {
           <IonTitle>Login</IonTitle>
         </IonToolbar>
       </IonHeader>
-
       <IonContent fullscreen>
         <IonItemDivider>Connexion</IonItemDivider>
         <IonItem>
@@ -52,7 +52,9 @@ const Home: React.FC = () => {
           ></IonInput>
         </IonItem>
         <IonButton onClick={login}>Connect</IonButton>
-        <IonButton class="createaccountbutton"> Créer un compte </IonButton>
+        <IonButton class="createaccountbutton" routerLink="/register">
+          Créer un compte
+        </IonButton>
       </IonContent>
     </IonPage>
   );
