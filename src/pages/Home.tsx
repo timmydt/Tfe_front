@@ -21,13 +21,10 @@ const Home: React.FC = () => {
   async function login() {
     try {
       console.log("je me log");
-      const data = await axios.post(
-        "https://api.timmy.dnet.ovh:4000/users/login",
-        {
-          username: username,
-          password: password,
-        }
-      );
+      const data = await axios.post("https://api.timmy.dnet.ovh/users/login", {
+        username: username,
+        password: password,
+      });
       console.log(data);
     } catch (error) {
       console.log(error);
