@@ -19,12 +19,16 @@ const Home: React.FC = () => {
   const [password, setPassword] = useState<string>();
 
   async function login() {
-    console.log("je me log");
-    const data = await axios.post("http://localhost:4000/users/login", {
-      username: username,
-      password: password,
-    });
-    console.log(data);
+    try {
+      console.log("je me log");
+      const data = await axios.post("https://api.timmy.dnet.ovh/users/login", {
+        username: username,
+        password: password,
+      });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

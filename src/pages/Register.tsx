@@ -22,13 +22,16 @@ const Register: React.FC = () => {
 
   async function createUser() {
     console.log("je crée un utilisateur");
-    const data = await axios.post("http://localhost:4000/users/create", {
-      username: username,
-      password: password,
-      mail: mail,
-      first_name: first_name,
-      last_name: last_name,
-    });
+    const data = await axios.post(
+      "https://api.timmy.dnet.ovh:4000/users/create",
+      {
+        username: username,
+        password: password,
+        mail: mail,
+        first_name: first_name,
+        last_name: last_name,
+      }
+    );
     console.log(data);
   }
 
