@@ -9,7 +9,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import React from "react";
+import React, { useCallback } from "react";
 import { useState } from "react";
 import "./Home.css";
 import axios from "axios";
@@ -25,11 +25,18 @@ const Home: React.FC = () => {
         username: username,
         password: password,
       });
+      if (data) {
+        console.log("data=true");
+      } else {
+        console.log("data=false");
+      }
       console.log(data);
     } catch (error) {
       console.log(error);
     }
   }
+
+  const token = "mon webtoken";
 
   return (
     <IonPage>
@@ -39,7 +46,7 @@ const Home: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonItemDivider>Connexion (TEST SI SA MARCHENT)</IonItemDivider>
+        <IonItemDivider>Connexion</IonItemDivider>
         <IonItem>
           <IonInput
             value={username}
@@ -57,7 +64,7 @@ const Home: React.FC = () => {
         </IonItem>
         <IonButton onClick={login}>Connect</IonButton>
         <IonButton class="createaccountbutton" routerLink="/register">
-          Créer un compte
+          register
         </IonButton>
       </IonContent>
     </IonPage>
