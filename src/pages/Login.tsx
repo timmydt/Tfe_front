@@ -9,34 +9,31 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import React, { useCallback } from "react";
+import React from "react";
 import { useState } from "react";
-import "./Home.css";
+import "./Login.css";
 import axios from "axios";
 
-const Home: React.FC = () => {
+const Login: React.FC = () => {
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
-
   async function login() {
     try {
       console.log("test");
-      const data = await axios.post("https://api.timmy.dnet.ovh/users/login", {
+      const res = await axios.post("https://api.timmy.dnet.ovh/users/login", {
         username: username,
         password: password,
       });
-      if (data) {
-        console.log("data=true");
-      } else {
-        console.log("data=false");
+
+      if (res) {
+        /*Client.setHeader("authorization", "Bearer ${res.data.token}");
+
+        CurrentUser = res.data.username;*/
       }
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
   }
-
-  const token = "mon webtoken";
 
   return (
     <IonPage>
@@ -71,4 +68,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Login;
