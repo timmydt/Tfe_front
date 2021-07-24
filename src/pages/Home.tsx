@@ -20,7 +20,7 @@ const Home: React.FC = () => {
 
   async function login() {
     try {
-      console.log("je me log");
+      console.log("test");
       const data = await axios.post("https://api.timmy.dnet.ovh/users/login", {
         username: username,
         password: password,
