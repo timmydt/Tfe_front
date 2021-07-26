@@ -6,13 +6,13 @@ import {
   IonItem,
   IonItemDivider,
   IonPage,
+  IonRouterLink,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
 import React from "react";
 import { useState } from "react";
 import "./Login.css";
-import axios from "axios";
 import { setToken, axiosInstance } from "../helpers/axios";
 
 const Login: React.FC = () => {
@@ -21,7 +21,6 @@ const Login: React.FC = () => {
 
   async function login() {
     try {
-      console.log("test");
       const res = await axiosInstance.post("/users/login", {
         username: username,
         password: password,
@@ -29,8 +28,6 @@ const Login: React.FC = () => {
 
       if (res) {
         setToken(res.data.token);
-        console.log(res);
-        console.log("ok");
       }
     } catch (error) {
       console.log(error);
@@ -38,9 +35,10 @@ const Login: React.FC = () => {
   }
 
   async function getCaves() {
-    const caves = await axiosInstance.get("/cave");
+    const caves = await axiosInstance.get("/cave/list");
     console.log(caves);
   }
+
   return (
     <IonPage>
       <IonHeader>
