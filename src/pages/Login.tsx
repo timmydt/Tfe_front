@@ -13,10 +13,12 @@ import React from "react";
 import { useState } from "react";
 import "./Login.css";
 import axios from "axios";
+import setToken from "../helpers/axios";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
+
   async function login() {
     try {
       console.log("test");
@@ -26,13 +28,9 @@ const Login: React.FC = () => {
       });
 
       if (res) {
-        const instance = axios.create({
-          baseURL: "https://api.timmy.dnet.ovh",
-          timeout: 3000,
-          headers: { Authorization: res.data.token },
-        });
-        console.log(Headers);
-        console.log(instance);
+        setToken(res.data.token);
+        console.log(res);
+        console.log("ok");
       }
     } catch (error) {
       console.log(error);
