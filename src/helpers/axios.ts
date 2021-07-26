@@ -12,4 +12,4 @@ async function setToken(token: string) {
   axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
 
-export default setToken;
+export { axiosInstance, setToken };

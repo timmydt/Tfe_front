@@ -13,7 +13,7 @@ import React from "react";
 import { useState } from "react";
 import "./Login.css";
 import axios from "axios";
-import setToken from "../helpers/axios";
+import { setToken, axiosInstance } from "../helpers/axios";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>();
@@ -22,7 +22,7 @@ const Login: React.FC = () => {
   async function login() {
     try {
       console.log("test");
-      const res = await axios.post("https://api.timmy.dnet.ovh/users/login", {
+      const res = await axiosInstance.post("/users/login", {
         username: username,
         password: password,
       });
