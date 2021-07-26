@@ -37,6 +37,10 @@ const Login: React.FC = () => {
     }
   }
 
+  async function getCaves() {
+    const caves = await axiosInstance.get("/cave");
+    console.log(caves);
+  }
   return (
     <IonPage>
       <IonHeader>
@@ -65,6 +69,7 @@ const Login: React.FC = () => {
         <IonButton class="createaccountbutton" routerLink="/register">
           register
         </IonButton>
+        <IonButton onClick={getCaves}>getCaves</IonButton>
       </IonContent>
     </IonPage>
   );
