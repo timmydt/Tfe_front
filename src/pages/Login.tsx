@@ -26,9 +26,13 @@ const Login: React.FC = () => {
       });
 
       if (res) {
-        /*Client.setHeader("authorization", "Bearer ${res.data.token}");
-
-        CurrentUser = res.data.username;*/
+        const instance = axios.create({
+          baseURL: "https://api.timmy.dnet.ovh",
+          timeout: 3000,
+          headers: { Authorization: res.data.token },
+        });
+        console.log(Headers);
+        console.log(instance);
       }
     } catch (error) {
       console.log(error);
