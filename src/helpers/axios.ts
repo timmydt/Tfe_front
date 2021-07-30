@@ -12,4 +12,8 @@ async function setToken(token: string) {
   axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
 
-export { axiosInstance, setToken };
+async function clearToken() {
+  axiosInstance.defaults.headers.common["Authorization"] = null;
+}
+
+export { axiosInstance, setToken, clearToken };

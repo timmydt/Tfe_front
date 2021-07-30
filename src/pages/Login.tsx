@@ -13,11 +13,29 @@ import {
 import React from "react";
 import { useState } from "react";
 import "./Login.css";
-import { setToken, axiosInstance } from "../helpers/axios";
+import { setToken, axiosInstance, clearToken } from "../helpers/axios";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
+
+  const fakeAuth = {
+    isAuthenticated: false,
+    signin(cb: any) {
+      fakeAuth.isAuthenticated = true;
+      setTimeout(cb, 100); // fake async
+    },
+    signout(cb: any) {
+      fakeAuth.isAuthenticated = false;
+      setTimeout(cb, 100);
+    },
+  };
+
+  async function logout() {
+    clearToken();
+    localStorage.removeItem("token");
+    console.log("disconnected");
+  }
 
   async function login() {
     try {
@@ -28,6 +46,8 @@ const Login: React.FC = () => {
 
       if (res) {
         setToken(res.data.token);
+        console.log("connected");
+        localStorage.setItem("token", res.data.token);
       }
     } catch (error) {
       console.log(error);
@@ -68,6 +88,9 @@ const Login: React.FC = () => {
           register
         </IonButton>
         <IonButton onClick={getCaves}>getCaves</IonButton>
+        <IonButton onClick={logout} routerLink="/">
+          log out
+        </IonButton>
       </IonContent>
     </IonPage>
   );
