@@ -8,7 +8,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import React from "react";
-import { clearToken } from "../helpers/axios";
+import { axiosInstance, clearToken } from "../helpers/axios";
 import "./AuthTest.css";
 
 const AuthTest: React.FC = () => {
@@ -18,15 +18,21 @@ const AuthTest: React.FC = () => {
     console.log("disconnected");
   }
 
+  async function getCaves() {
+    const caves = await axiosInstance.get("/cave/list");
+    console.log(caves);
+  }
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Login</IonTitle>
+          <IonTitle>You are logged in !</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonItemDivider>Mon profil</IonItemDivider>
+        <IonButton onClick={getCaves}>getCaves</IonButton>
         <IonButton onClick={logout} routerLink="/">
           log out
         </IonButton>
