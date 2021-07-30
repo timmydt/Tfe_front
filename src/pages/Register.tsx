@@ -34,7 +34,7 @@ const Register: React.FC = () => {
     console.log(data);
 
     if (data) {
-      history.push("/login");
+      history.push("/");
     }
   }
 
