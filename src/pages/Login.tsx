@@ -13,10 +13,12 @@ import React from "react";
 import { useState } from "react";
 import "./Login.css";
 import { setToken, axiosInstance } from "../helpers/axios";
+import { useHistory } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
+  let history = useHistory();
 
   async function login() {
     try {
@@ -29,6 +31,7 @@ const Login: React.FC = () => {
         setToken(res.data.token);
         console.log("connected");
         localStorage.setItem("token", res.data.token);
+        history.push("/home");
       }
     } catch (error) {
       console.log(error);
