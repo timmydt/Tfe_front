@@ -11,6 +11,7 @@ import {
 } from "@ionic/react";
 import axios from "axios";
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import "./Register.css";
 
 const Register: React.FC = () => {
@@ -19,6 +20,7 @@ const Register: React.FC = () => {
   const [mail, setMail] = useState<string>();
   const [first_name, setFirstName] = useState<string>();
   const [last_name, setLastName] = useState<string>();
+  let history = useHistory();
 
   async function createUser() {
     console.log("je crée un utilisateur");
@@ -30,6 +32,10 @@ const Register: React.FC = () => {
       last_name: last_name,
     });
     console.log(data);
+
+    if (data) {
+      history.push("/login");
+    }
   }
 
   return (
