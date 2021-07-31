@@ -1,9 +1,11 @@
 import axios from "axios";
+import * as dotenv from "dotenv";
 
 let headers = {};
+dotenv.config();
 
 const axiosInstance = axios.create({
-  baseURL: "https://api.timmy.dnet.ovh",
+  baseURL: process.env.SRV_URL,
   timeout: 3000,
   headers,
 });
