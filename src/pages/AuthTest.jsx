@@ -1,6 +1,5 @@
 import {
   IonButton,
-  IonCard,
   IonCol,
   IonContent,
   IonGrid,
@@ -13,7 +12,6 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { promises } from "fs";
 import React, { useEffect, useState } from "react";
 import { axiosInstance, clearToken } from "../helpers/axios";
 import "./AuthTest.css";
