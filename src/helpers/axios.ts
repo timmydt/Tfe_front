@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let headers = {};
+let headers = { Authorization: `Bearer ${localStorage.getItem("token")}` };
 
 const axiosInstance = axios.create({
   baseURL:
