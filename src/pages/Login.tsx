@@ -8,6 +8,7 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  useIonAlert,
 } from "@ionic/react";
 import React from "react";
 import { useState } from "react";
@@ -19,6 +20,7 @@ const Login: React.FC = () => {
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
   let history = useHistory();
+  const [errorText] = useIonAlert();
 
   async function login() {
     try {
@@ -34,7 +36,7 @@ const Login: React.FC = () => {
         history.push("/home");
       }
     } catch (error) {
-      console.log(error);
+      errorText({ message: "Incorrect username or password", buttons: ["ok"] });
     }
   }
 

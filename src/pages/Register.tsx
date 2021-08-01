@@ -8,10 +8,11 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  useIonAlert,
 } from "@ionic/react";
-import axios from "axios";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { axiosInstance } from "../helpers/axios";
 import "./Register.css";
 
 const Register: React.FC = () => {
@@ -21,20 +22,31 @@ const Register: React.FC = () => {
   const [first_name, setFirstName] = useState<string>();
   const [last_name, setLastName] = useState<string>();
   let history = useHistory();
+  const [errorText] = useIonAlert();
 
   async function createUser() {
-    console.log("je crée un utilisateur");
-    const data = await axios.post("https://api.timmy.dnet.ovh/users/create", {
-      username: username,
-      password: password,
-      mail: mail,
-      first_name: first_name,
-      last_name: last_name,
-    });
-    console.log(data);
+    try {
+      const data = await axiosInstance.post("/users/create", {
+        username: username,
+        password: password,
+        mail: mail,
+        first_name: first_name,
+        last_name: last_name,
+      });
 
-    if (data) {
-      history.push("/");
+      if (data) {
+        history.push("/");
+      }
+    } catch (error) {
+      if (error.response.status === 400) {
+        errorText({ message: "There is one field missing", buttons: ["ok"] });
+      }
+      if (error.response.status === 401) {
+        errorText({ message: "Username already used", buttons: ["ok"] });
+      }
+      if (error.response.status === 402) {
+        errorText({ message: "Mail already used", buttons: ["ok"] });
+      }
     }
   }
 
@@ -46,18 +58,18 @@ const Register: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonItemDivider>Create account</IonItemDivider>
+        <IonItemDivider>Create account ( * are mendatory )</IonItemDivider>
         <IonItem>
           <IonInput
             value={username}
-            placeholder="Username"
+            placeholder="Username (*)"
             onIonChange={(e) => setUsername(e.detail.value!)}
           ></IonInput>
         </IonItem>
         <IonItem>
           <IonInput
             value={password}
-            placeholder="Password"
+            placeholder="Password (*)"
             type="password"
             onIonChange={(e) => setPassword(e.detail.value!)}
           ></IonInput>
@@ -65,7 +77,7 @@ const Register: React.FC = () => {
         <IonItem>
           <IonInput
             value={mail}
-            placeholder="E-Mail"
+            placeholder="E-Mail (*)"
             onIonChange={(e) => setMail(e.detail.value!)}
           ></IonInput>
         </IonItem>
