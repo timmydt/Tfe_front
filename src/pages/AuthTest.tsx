@@ -45,7 +45,7 @@ const AuthTest = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>You are logged in !</IonTitle>
+          <IonTitle>You are logged in ! </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -81,6 +81,7 @@ const AuthTest = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
+        <IonButton> Refresh data </IonButton>
         <IonButton onClick={logout} routerLink="/">
           log out
         </IonButton>
