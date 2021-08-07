@@ -54,7 +54,7 @@ const AuthTest = () => {
             <IonCol>
               <IonItemDivider>My caves</IonItemDivider>
               <IonItem>
-                <IonButton>+</IonButton>
+                <IonButton routerLink="/createCave">+</IonButton>
                 <IonButton>🗑️</IonButton>
               </IonItem>
               <IonItem>
@@ -81,7 +81,6 @@ const AuthTest = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-        <IonButton> Refresh data </IonButton>
         <IonButton onClick={logout} routerLink="/">
           log out
         </IonButton>

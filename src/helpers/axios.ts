@@ -10,7 +10,6 @@ const axiosInstance = axios.create({
 
 async function setToken(token: string) {
   axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  console.log(token);
 }
 
 async function clearToken() {

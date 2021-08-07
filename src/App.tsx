@@ -3,7 +3,7 @@ import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AuthTest from "./pages/AuthTest";
 import NotFound from "./pages/NotFound";
 
@@ -24,20 +24,23 @@ import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
+import AddCave from "./pages/AddCave";
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/home" component={AuthTest} />
-          <Route path="*" component={NotFound} />
-        </Switch>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
-
+const App: React.FC = () => {
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Switch>
+            <Route exact path="/" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/home" component={AuthTest} />
+            <Route path="/createCave" component={AddCave} />
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 export default App;
