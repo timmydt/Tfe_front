@@ -25,6 +25,7 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import AddCave from "./pages/AddCave";
+import AddNote from "./pages/AddNote";
 
 const App: React.FC = () => {
   return (
@@ -36,6 +37,7 @@ const App: React.FC = () => {
             <Route path="/register" component={Register} />
             <Route path="/home" component={AuthTest} />
             <Route path="/createCave" component={AddCave} />
+            <Route path="/createNote" component={AddNote} />
             <Route path="*" component={NotFound} />
           </Switch>
         </IonRouterOutlet>

@@ -54,13 +54,15 @@ const AuthTest = () => {
             <IonCol>
               <IonItemDivider>My caves</IonItemDivider>
               <IonItem>
-                <IonButton routerLink="/createCave">+</IonButton>
-                <IonButton>🗑️</IonButton>
+                <IonButton routerLink="/createCave">Add</IonButton>
               </IonItem>
               <IonItem>
                 <IonList>
                   {caves.map((cave) => (
-                    <li key={cave.id}>{cave.name}</li>
+                    <a href="/" key={cave.id}>
+                      {cave.name}
+                      <br />
+                    </a>
                   ))}
                 </IonList>
               </IonItem>
@@ -68,13 +70,15 @@ const AuthTest = () => {
             <IonCol>
               <IonItemDivider>My notes</IonItemDivider>
               <IonItem>
-                <IonButton>+</IonButton>
-                <IonButton>🗑️</IonButton>
+                <IonButton routerLink="/createNote">Add</IonButton>
               </IonItem>
               <IonItem>
                 <IonList>
                   {notes.map((note) => (
-                    <li key={note.id}>{note.name}</li>
+                    <a href="/" key={note.id}>
+                      {note.name}
+                      <br />
+                    </a>
                   ))}
                 </IonList>
               </IonItem>
