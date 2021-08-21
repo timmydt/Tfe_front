@@ -1,5 +1,9 @@
 import {
   IonButton,
+  IonCard,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
   IonCol,
   IonContent,
   IonGrid,
@@ -12,10 +16,15 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
+  useIonViewDidEnter,
+  useIonViewDidLeave,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import { axiosInstance, clearToken } from "../helpers/axios";
 import "./AuthTest.css";
+import cave from '../assets/cave.jpg'
+import note from '../assets/note.jpg'
 
 const AuthTest = () => {
   const [caves, setCaves] = useState([]);
@@ -29,18 +38,20 @@ const AuthTest = () => {
 
   async function getCaves() {
     const data = await axiosInstance.get("/cave/list");
+    console.log(data)
     setCaves(data.data);
   }
 
   async function getNotes() {
     const data = await axiosInstance.get("/note/list");
+    console.log(data)
     setNotes(data.data);
   }
 
-  useEffect(() => {
-    getCaves();
-    getNotes();
-  }, []);
+  useIonViewDidEnter(() => {
+    getCaves()
+    getNotes()
+  })
 
   return (
     <IonPage>
@@ -50,49 +61,57 @@ const AuthTest = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+        <IonTitle style={{marginTop: 10, marginBottom: 10}}>
+          My caves
+          <IonRouterLink routerLink="/createCave">
+            <IonCardSubtitle>Ajouter une cave</IonCardSubtitle>
+          </IonRouterLink>
+        </IonTitle>
+        <img src={cave} alt="" style={{ height: 150, objectFit: 'cover', width: '100%' }} />
         <IonGrid>
           <IonRow>
             <IonCol>
-              <IonItemDivider>My caves</IonItemDivider>
-              <IonItem>
-                <IonButton routerLink="/createCave">Add</IonButton>
-              </IonItem>
-              <IonItem>
-                <IonList>
-                  {caves.map((cave) => (
-                    <IonRouterLink
-                      color="dark"
-                      href={"/cave/" + cave.id}
-                      key={cave.id}
-                    >
-                      {cave.name}
-                      <br />
-                    </IonRouterLink>
-                  ))}
-                </IonList>
-              </IonItem>
-            </IonCol>
-            <IonCol>
-              <IonItemDivider>My notes</IonItemDivider>
-              <IonItem>
-                <IonButton routerLink="/createNote">Add</IonButton>
-              </IonItem>
-              <IonItem>
-                <IonList>
-                  {notes.map((note) => (
-                    <IonRouterLink color="dark" href="/" key={note.id}>
-                      {note.name}
-                      <br />
-                    </IonRouterLink>
-                  ))}
-                </IonList>
-              </IonItem>
+              {caves.map((cave) => (
+                <IonCard routerLink={"/cave/" + cave.id} key={cave.id}>
+                  <div style={{ padding: 15 }}>
+                    <IonCardSubtitle>({cave.bottles.length} bouteilles)</IonCardSubtitle>
+                    <IonCardTitle>{cave.name}</IonCardTitle>
+                  </div>
+                </IonCard>
+              ))}
             </IonCol>
           </IonRow>
         </IonGrid>
-        <IonButton onClick={logout} routerLink="/">
-          log out
-        </IonButton>
+
+        <IonTitle style={{ marginBottom: 10 }}>
+          My notes
+          <IonRouterLink routerLink="/createNote">
+            <IonCardSubtitle>Ajouter une note</IonCardSubtitle>
+          </IonRouterLink>
+        </IonTitle>
+        <img src={note} alt="" style={{ height: 150, objectFit: 'cover', width: '100%' }} />
+        <IonGrid>
+          <IonRow>
+            <IonCol>
+              {notes.map((note) => (
+                <IonCard routerLink={`/note/${note.id}`} key={note.id}>
+                  <img src={note.picture} alt="" />
+                  <IonCardHeader>
+                    <IonCardSubtitle>Ma note</IonCardSubtitle>
+                    <IonCardTitle>{note.name}</IonCardTitle>
+                  </IonCardHeader>
+                </IonCard>
+              ))}
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonButton onClick={logout} routerLink="/">
+                Logout
+              </IonButton>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
       </IonContent>
     </IonPage>
   );
