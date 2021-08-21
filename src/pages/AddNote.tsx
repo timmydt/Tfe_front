@@ -1,9 +1,14 @@
 import {
   IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
   IonContent,
+  IonGrid,
   IonHeader,
   IonInput,
   IonPage,
+  IonTextarea,
   IonTitle,
   IonToolbar,
   useIonAlert,
@@ -11,13 +16,34 @@ import {
 import { useState } from "react";
 import { useHistory } from "react-router";
 import { axiosInstance } from "../helpers/axios";
+import cave from '../assets/cave.jpg'
 
 const AddNote = () => {
   const [name, setName] = useState<string>();
   const [note, setNote] = useState<string>();
   const [picture, setPicture] = useState<string>();
-  let history = useHistory();
+  const history = useHistory();
   const [errorText] = useIonAlert();
+
+  async function setImage(e) {
+    const formData = new FormData()
+    const file = e.target.files[0]
+
+    formData.append('picture', file)
+
+    const { data } = await axiosInstance.post('/note/picture', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+
+    setNote(data.description)
+    setPicture(data.uri)
+  }
+  
+  function openFileDialog() {
+    document.getElementById("file-upload").click();
+  }
 
   async function createNote() {
     try {
@@ -25,6 +51,7 @@ const AddNote = () => {
         name: name,
         note: note,
         picture: picture,
+        date: new Date()
       });
 
       if (data) {
@@ -44,23 +71,34 @@ const AddNote = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonInput
-          value={name}
-          placeholder="Note name (*)"
-          onIonChange={(e) => setName(e.detail.value!)}
-        ></IonInput>
-        <IonInput
-          value={note}
-          placeholder="Insert my notes (*)"
-          onIonChange={(e) => setNote(e.detail.value!)}
-        ></IonInput>
-        <IonInput
-          value={picture}
-          placeholder="Note picture 📷 (*)"
-          onIonChange={(e) => setPicture(e.detail.value!)}
-        ></IonInput>
-        <IonButton onClick={createNote}>Create note</IonButton>
-        <IonButton routerLink="/home">Cancel</IonButton>
+        <IonGrid>
+          <IonCard>
+            <img src={picture || cave} alt="" style={{ height: 150, objectFit: 'cover', width: '100%' }} />
+            <IonCardHeader>
+              <IonInput
+                value={name}
+                placeholder="Note name (*)"
+                onIonChange={(e) => setName(e.detail.value!)}
+              ></IonInput>
+              <IonTextarea
+                value={note}
+                rows={10}
+                placeholder="Insert my notes (*)"
+                onIonChange={(e) => setNote(e.detail.value!)}
+              ></IonTextarea>
+              <input
+                type="file"
+                id="file-upload"
+                style={{ display: "none" }}
+                onChange={setImage}
+              />
+            </IonCardHeader>
+          </IonCard>
+        </IonGrid>
+
+        <IonButton fill="outline" expand="block" onClick={openFileDialog}>Camera</IonButton>
+        <IonButton fill="outline" color="danger" expand="block" routerLink="/home">Cancel</IonButton>
+        <IonButton color="primary" expand="block" onClick={createNote}>Create note</IonButton>
       </IonContent>
     </IonPage>
   );
