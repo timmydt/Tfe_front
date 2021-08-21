@@ -26,6 +26,8 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import AddCave from "./pages/AddCave";
 import AddNote from "./pages/AddNote";
+import RecoverPassword from "./pages/RecoverPassword";
+import ListCave from "./pages/ListCave";
 
 const App: React.FC = () => {
   return (
@@ -38,6 +40,8 @@ const App: React.FC = () => {
             <Route path="/home" component={AuthTest} />
             <Route path="/createCave" component={AddCave} />
             <Route path="/createNote" component={AddNote} />
+            <Route path="/recover" component={RecoverPassword} />
+            <Route exact path="/cave/:id" component={ListCave} />
             <Route path="*" component={NotFound} />
           </Switch>
         </IonRouterOutlet>

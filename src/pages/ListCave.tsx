@@ -5,19 +5,15 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-  useIonAlert,
 } from "@ionic/react";
-import { useHistory } from "react-router";
+import { useEffect, useState } from "react";
 
 const ListCave = () => {
-  let history = useHistory();
-  const [errorText] = useIonAlert();
-
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Add a new note</IonTitle>
+          <IonTitle>My caves</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

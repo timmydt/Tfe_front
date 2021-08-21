@@ -68,6 +68,7 @@ const Login: React.FC = () => {
         <IonButton class="createaccountbutton" routerLink="/register">
           register
         </IonButton>
+        <IonButton routerLink="/recover">Recover Password ?</IonButton>
       </IonContent>
     </IonPage>
   );

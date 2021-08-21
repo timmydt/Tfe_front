@@ -8,6 +8,7 @@ import {
   IonItemDivider,
   IonList,
   IonPage,
+  IonRouterLink,
   IonRow,
   IonTitle,
   IonToolbar,
@@ -59,10 +60,14 @@ const AuthTest = () => {
               <IonItem>
                 <IonList>
                   {caves.map((cave) => (
-                    <a href="/" key={cave.id}>
+                    <IonRouterLink
+                      color="dark"
+                      href={"/cave/" + cave.id}
+                      key={cave.id}
+                    >
                       {cave.name}
                       <br />
-                    </a>
+                    </IonRouterLink>
                   ))}
                 </IonList>
               </IonItem>
@@ -75,10 +80,10 @@ const AuthTest = () => {
               <IonItem>
                 <IonList>
                   {notes.map((note) => (
-                    <a href="/" key={note.id}>
+                    <IonRouterLink color="dark" href="/" key={note.id}>
                       {note.name}
                       <br />
-                    </a>
+                    </IonRouterLink>
                   ))}
                 </IonList>
               </IonItem>
