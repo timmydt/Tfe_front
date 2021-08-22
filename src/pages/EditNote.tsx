@@ -24,13 +24,13 @@ import { useHistory, useParams } from "react-router";
 import { axiosInstance } from "../helpers/axios";
 
 const EditNote: React.FC = () => {
-  const { id } = useParams<{id: string}>()
-  const [name, setName] = useState<string>()
-  const [picture, setPicture] = useState<string>()
-  const [description, setDescription] = useState<string>()
-  const [note, setNote] = useState(null)
-  const [present] = useIonAlert()
-  const history = useHistory()
+  const { id } = useParams<{ id: string }>();
+  const [name, setName] = useState<string>();
+  const [picture, setPicture] = useState<string>();
+  const [description, setDescription] = useState<string>();
+  const [note, setNote] = useState(null);
+  const [present] = useIonAlert();
+  const history = useHistory();
 
   async function editNote() {
     await axiosInstance.put(`/note/update`, {
@@ -38,45 +38,44 @@ const EditNote: React.FC = () => {
       name,
       picture,
       note: description,
-      date: note.date
-    })
+    });
 
     present({
-      header: 'Note',
-      message: 'Note updated!',
-      buttons: [{ text: 'Ok', handler: history.goBack }],
+      header: "Note",
+      message: "Note updated!",
+      buttons: [{ text: "Ok", handler: history.goBack }],
       onDidDismiss: history.goBack,
-    })
+    });
   }
 
   async function setImage(e) {
-    const formData = new FormData()
-    const file = e.target.files[0]
+    const formData = new FormData();
+    const file = e.target.files[0];
 
-    formData.append('picture', file)
+    formData.append("picture", file);
 
-    const { data } = await axiosInstance.post('/note/picture', formData, {
+    const { data } = await axiosInstance.post("/note/picture", formData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
-    setDescription(data.description)
-    setPicture(data.uri)
+    setDescription(data.description);
+    setPicture(data.uri);
   }
-  
+
   function openFileDialog() {
     document.getElementById("file-upload").click();
   }
 
   useIonViewDidEnter(async () => {
-    const { data } = await axiosInstance.get(`/note/${id}`)
+    const { data } = await axiosInstance.get(`/note/${id}`);
 
-    setNote(data)
-    setName(data.name)
-    setDescription(data.note)
-    setPicture(data.picture)
-  })
+    setNote(data);
+    setName(data.name);
+    setDescription(data.note);
+    setPicture(data.picture);
+  });
 
   return (
     <IonPage>
@@ -84,8 +83,8 @@ const EditNote: React.FC = () => {
         <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton defaultHref="/home" />
-          </IonButtons> 
-          <IonTitle>{'Edit: '+note?.name || 'Edit'}</IonTitle>
+          </IonButtons>
+          <IonTitle>{"Edit: " + note?.name || "Edit"}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -122,8 +121,17 @@ const EditNote: React.FC = () => {
             />
           </IonCardContent>
           <IonItem>
-            <IonButton fill="outline" expand="block" onClick={openFileDialog}>Camera</IonButton>
-            <IonButton color="primary" expand="block" slot="end"  onClick={editNote}>Edit note</IonButton>
+            <IonButton fill="outline" expand="block" onClick={openFileDialog}>
+              Camera
+            </IonButton>
+            <IonButton
+              color="primary"
+              expand="block"
+              slot="end"
+              onClick={editNote}
+            >
+              Edit note
+            </IonButton>
           </IonItem>
         </IonCard>
       </IonContent>

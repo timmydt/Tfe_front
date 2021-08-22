@@ -23,8 +23,8 @@ import {
 import React, { useEffect, useState } from "react";
 import { axiosInstance, clearToken } from "../helpers/axios";
 import "./AuthTest.css";
-import cave from '../assets/cave.jpg'
-import note from '../assets/note.jpg'
+import cave from "../assets/cave.jpg";
+import note from "../assets/note.jpg";
 
 const AuthTest = () => {
   const [caves, setCaves] = useState([]);
@@ -38,20 +38,20 @@ const AuthTest = () => {
 
   async function getCaves() {
     const data = await axiosInstance.get("/cave/list");
-    console.log(data)
+    console.log(data);
     setCaves(data.data);
   }
 
   async function getNotes() {
     const data = await axiosInstance.get("/note/list");
-    console.log(data)
+    console.log(data);
     setNotes(data.data);
   }
 
   useIonViewDidEnter(() => {
-    getCaves()
-    getNotes()
-  })
+    getCaves();
+    getNotes();
+  });
 
   return (
     <IonPage>
@@ -61,20 +61,26 @@ const AuthTest = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonTitle style={{marginTop: 10, marginBottom: 10}}>
+        <IonTitle style={{ marginTop: 10, marginBottom: 10 }}>
           My caves
           <IonRouterLink routerLink="/createCave">
             <IonCardSubtitle>Ajouter une cave</IonCardSubtitle>
           </IonRouterLink>
         </IonTitle>
-        <img src={cave} alt="" style={{ height: 150, objectFit: 'cover', width: '100%' }} />
+        <img
+          src={cave}
+          alt=""
+          style={{ height: 150, objectFit: "cover", width: "25%" }}
+        />
         <IonGrid>
           <IonRow>
             <IonCol>
               {caves.map((cave) => (
                 <IonCard routerLink={"/cave/" + cave.id} key={cave.id}>
                   <div style={{ padding: 15 }}>
-                    <IonCardSubtitle>({cave.bottles.length} bouteilles)</IonCardSubtitle>
+                    <IonCardSubtitle>
+                      ({cave.bottles.length} bouteilles)
+                    </IonCardSubtitle>
                     <IonCardTitle>{cave.name}</IonCardTitle>
                   </div>
                 </IonCard>
@@ -89,7 +95,11 @@ const AuthTest = () => {
             <IonCardSubtitle>Ajouter une note</IonCardSubtitle>
           </IonRouterLink>
         </IonTitle>
-        <img src={note} alt="" style={{ height: 150, objectFit: 'cover', width: '100%' }} />
+        <img
+          src={note}
+          alt=""
+          style={{ height: 150, objectFit: "cover", width: "100%" }}
+        />
         <IonGrid>
           <IonRow>
             <IonCol>

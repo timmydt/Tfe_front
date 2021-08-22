@@ -1,7 +1,10 @@
 import {
   IonButton,
   IonContent,
+  IonGrid,
   IonHeader,
+  IonItem,
+  IonItemDivider,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -17,8 +20,6 @@ const ListCave = () => {
   async function getCave() {
     const data = await axiosInstance.get("/cave/" + id);
     setCave(data.data);
-    console.log(cave);
-    console.log("<" + id);
   }
 
   useEffect(() => {
@@ -33,6 +34,9 @@ const ListCave = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+        <IonItemDivider>
+          <IonItem></IonItem>
+        </IonItemDivider>
         <IonButton>Add Wine</IonButton>
         <IonButton>Edit cave</IonButton>
         <IonButton routerLink="/home">Cancel</IonButton>
