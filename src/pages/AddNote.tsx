@@ -7,6 +7,7 @@ import {
   IonGrid,
   IonHeader,
   IonInput,
+  IonItem,
   IonPage,
   IonTextarea,
   IonTitle,
@@ -93,12 +94,13 @@ const AddNote = () => {
                 onChange={setImage}
               />
             </IonCardHeader>
+            <IonItem>
+              <IonButton fill="outline" expand="block" onClick={openFileDialog}>Camera</IonButton>
+              <IonButton fill="outline" color="danger" expand="block" routerLink="/home">Cancel</IonButton>
+              <IonButton color="primary" expand="block" slot="end"  onClick={createNote}>Create note</IonButton>
+            </IonItem>
           </IonCard>
         </IonGrid>
-
-        <IonButton fill="outline" expand="block" onClick={openFileDialog}>Camera</IonButton>
-        <IonButton fill="outline" color="danger" expand="block" routerLink="/home">Cancel</IonButton>
-        <IonButton color="primary" expand="block" onClick={createNote}>Create note</IonButton>
       </IonContent>
     </IonPage>
   );

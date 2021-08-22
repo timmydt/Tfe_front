@@ -17,8 +17,8 @@ import { setToken, axiosInstance } from "../helpers/axios";
 import { useHistory } from "react-router-dom";
 
 const Login: React.FC = () => {
-  const [username, setUsername] = useState<string>('a');
-  const [password, setPassword] = useState<string>('a');
+  const [username, setUsername] = useState<string>('timmy');
+  const [password, setPassword] = useState<string>('timmy');
   let history = useHistory();
   const [errorText] = useIonAlert();
 

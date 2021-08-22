@@ -28,6 +28,8 @@ import AddCave from "./pages/AddCave";
 import AddNote from "./pages/AddNote";
 import RecoverPassword from "./pages/RecoverPassword";
 import ListCave from "./pages/ListCave";
+import Note from "./pages/Note";
+import EditNote from "./pages/EditNote";
 
 const App: React.FC = () => {
   return (
@@ -42,6 +44,8 @@ const App: React.FC = () => {
             <Route path="/createNote" component={AddNote} />
             <Route path="/recover" component={RecoverPassword} />
             <Route exact path="/cave/:id" component={ListCave} />
+            <Route exact path="/note/:id" component={Note} />
+            <Route exact path="/note/edit/:id" component={EditNote} />
             <Route path="*" component={NotFound} />
           </Switch>
         </IonRouterOutlet>
@@ -49,4 +53,5 @@ const App: React.FC = () => {
     </IonApp>
   );
 };
+
 export default App;
