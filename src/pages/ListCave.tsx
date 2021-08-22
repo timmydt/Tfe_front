@@ -1,11 +1,16 @@
 import {
   IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
   IonContent,
   IonGrid,
   IonHeader,
   IonItem,
   IonItemDivider,
   IonPage,
+  IonRow,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -35,7 +40,29 @@ const ListCave = () => {
       </IonHeader>
       <IonContent fullscreen>
         <IonItemDivider>
-          <IonItem></IonItem>
+          <IonRow>
+            {cave?.bottles.map((bottle) => (
+              <IonCard key={bottle.name}>
+                <IonCardHeader>
+                  <IonCardTitle>Name : {bottle.name}</IonCardTitle>
+                </IonCardHeader>
+                <IonCardContent>
+                  Best before : {bottle.best_before}
+                  <br />
+                  Food combination : {bottle.food}
+                  <br />
+                  Grapes : {bottle.grapes}
+                  <br />
+                  Maker : {bottle.maker}
+                  <br />
+                  Year : {bottle.year}
+                  <br />
+                  <img alt="bouteille" src={bottle.picture} />
+                  <br />
+                </IonCardContent>
+              </IonCard>
+            ))}
+          </IonRow>
         </IonItemDivider>
         <IonButton>Add Wine</IonButton>
         <IonButton>Edit cave</IonButton>
