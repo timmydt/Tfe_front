@@ -4,6 +4,7 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
+  IonCol,
   IonContent,
   IonGrid,
   IonHeader,
@@ -39,32 +40,32 @@ const ListCave = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonItemDivider>
+        <IonGrid>
           <IonRow>
-            {cave?.bottles.map((bottle) => (
-              <IonCard key={bottle.name}>
-                <IonCardHeader>
-                  <IonCardTitle>Name : {bottle.name}</IonCardTitle>
-                </IonCardHeader>
-                <IonCardContent>
-                  Best before : {bottle.best_before}
-                  <br />
-                  Food combination : {bottle.food}
-                  <br />
-                  Grapes : {bottle.grapes}
-                  <br />
-                  Maker : {bottle.maker}
-                  <br />
-                  Year : {bottle.year}
-                  <br />
-                  <img alt="bouteille" src={bottle.picture} />
-                  <br />
-                </IonCardContent>
-              </IonCard>
-            ))}
+            <IonCol>
+              {cave?.bottles.map((bottle) => (
+                <IonCard key={bottle.name}>
+                  <img alt="bouteille" src={bottle.picture} style={{ height: 200, width: '100%', objectFit: 'cover' }} />
+                  <IonCardHeader>
+                    <IonCardTitle>Name : {bottle.name}</IonCardTitle>
+                  </IonCardHeader>
+                  <IonCardContent>
+                    Best before : {bottle.best_before}
+                    <br />
+                    Food combination : {bottle.food}
+                    <br />
+                    Grapes : {bottle.grapes}
+                    <br />
+                    Maker : {bottle.maker}
+                    <br />
+                    Year : {bottle.year}
+                  </IonCardContent>
+                </IonCard>
+              ))}
+            </IonCol>
           </IonRow>
-        </IonItemDivider>
-        <IonButton>Add Wine</IonButton>
+        </IonGrid>
+        <IonButton routerLink={'/cave/add/'+id}>Add Wine</IonButton>
         <IonButton>Edit cave</IonButton>
         <IonButton routerLink="/home">Cancel</IonButton>
       </IonContent>

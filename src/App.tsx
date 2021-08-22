@@ -30,6 +30,7 @@ import RecoverPassword from "./pages/RecoverPassword";
 import ListCave from "./pages/ListCave";
 import Note from "./pages/Note";
 import EditNote from "./pages/EditNote";
+import AddWine from "./pages/AddWine";
 
 const App: React.FC = () => {
   return (
@@ -44,6 +45,7 @@ const App: React.FC = () => {
             <Route path="/createNote" component={AddNote} />
             <Route path="/recover" component={RecoverPassword} />
             <Route exact path="/cave/:id" component={ListCave} />
+            <Route exact path="/cave/add/:id" component={AddWine} />
             <Route exact path="/note/:id" component={Note} />
             <Route exact path="/note/edit/:id" component={EditNote} />
             <Route path="*" component={NotFound} />

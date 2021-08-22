@@ -70,7 +70,7 @@ const AuthTest = () => {
         <img
           src={cave}
           alt=""
-          style={{ height: 150, objectFit: "cover", width: "25%" }}
+          style={{ height: 150, objectFit: "cover", width: "100%" }}
         />
         <IonGrid>
           <IonRow>
