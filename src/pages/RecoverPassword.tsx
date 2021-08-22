@@ -8,16 +8,19 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import { axiosInstance } from "../helpers/axios";
 
 const RecoverPassword = () => {
-  async function recover() {}
+  async function recover() {
+    await axiosInstance.post("/users/recoverPassword");
+  }
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle> Recover my password</IonTitle>{" "}
-        </IonToolbar>{" "}
+          <IonTitle> Recover my password</IonTitle>
+        </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonItem>
