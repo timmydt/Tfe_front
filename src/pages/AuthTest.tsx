@@ -16,6 +16,7 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
+  isPlatform,
   useIonViewDidEnter,
   useIonViewDidLeave,
   useIonViewWillEnter,
@@ -27,8 +28,8 @@ import cave from "../assets/cave.jpg";
 import note from "../assets/note.jpg";
 
 const AuthTest = () => {
-  const [caves, setCaves] = useState([]);
-  const [notes, setNotes] = useState([]);
+  const [caves, setCaves] = useState([])
+  const [notes, setNotes] = useState([])
 
   async function logout() {
     clearToken();
@@ -60,19 +61,18 @@ const AuthTest = () => {
           <IonTitle>You are logged in ! </IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
-        <IonTitle style={{ marginTop: 10, marginBottom: 10 }}>
-          My caves
-          <IonRouterLink routerLink="/createCave">
-            <IonCardSubtitle>Ajouter une cave</IonCardSubtitle>
-          </IonRouterLink>
-        </IonTitle>
-        <img
-          src={cave}
-          alt=""
-          style={{ height: 150, objectFit: "cover", width: "100%" }}
-        />
+      <IonContent fullscreen>        
         <IonGrid>
+          <IonRow style={{ marginTop: isPlatform('ios') ? 20 : 0 }}>
+            <IonCol>
+              <IonTitle>
+                My caves
+                <IonRouterLink routerLink="/createCave">
+                  <IonCardSubtitle>Ajouter une cave</IonCardSubtitle>
+                </IonRouterLink>
+              </IonTitle>
+            </IonCol>
+          </IonRow>
           <IonRow>
             <IonCol>
               {caves.map((cave) => (
@@ -87,20 +87,18 @@ const AuthTest = () => {
               ))}
             </IonCol>
           </IonRow>
-        </IonGrid>
 
-        <IonTitle style={{ marginBottom: 10 }}>
-          My notes
-          <IonRouterLink routerLink="/createNote">
-            <IonCardSubtitle>Ajouter une note</IonCardSubtitle>
-          </IonRouterLink>
-        </IonTitle>
-        <img
-          src={note}
-          alt=""
-          style={{ height: 150, objectFit: "cover", width: "100%" }}
-        />
-        <IonGrid>
+          <IonRow>
+            <IonCol>
+              <IonTitle style={{ marginBottom: 10 }}>
+                My notes
+                <IonRouterLink routerLink="/createNote">
+                  <IonCardSubtitle>Ajouter une note</IonCardSubtitle>
+                </IonRouterLink>
+              </IonTitle>
+            </IonCol>
+          </IonRow>
+
           <IonRow>
             <IonCol>
               {notes.map((note) => (

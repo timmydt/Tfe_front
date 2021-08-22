@@ -64,11 +64,11 @@ const Note: React.FC = () => {
           </IonCardHeader>
           <IonCardContent>
             {note?.note}
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
+              <IonButton size="small" routerLink={`/note/edit/${id}`} fill="outline" >Edit</IonButton>
+              <IonButton size="small" color="danger" slot="end" onClick={deleteNote}>Delete</IonButton>
+            </div>
           </IonCardContent>
-          <IonItem>
-            <IonButton routerLink={`/note/edit/${id}`} fill="outline" >Edit</IonButton>
-            <IonButton color="danger" slot="end" onClick={deleteNote}>Delete</IonButton>
-          </IonItem>
         </IonCard>
       </IonContent>
     </IonPage>

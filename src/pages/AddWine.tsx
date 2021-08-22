@@ -1,4 +1,5 @@
 import {
+  IonBackButton,
   IonButton,
   IonButtons,
   IonCard,
@@ -74,11 +75,12 @@ const AddWine: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Add wine to this cave</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <IonToolbar>
+        <IonButtons slot="start">
+          <IonBackButton defaultHref="/home" />
+        </IonButtons>
+        <IonTitle>Add wine(s) to this cave</IonTitle>
+      </IonToolbar>
       <IonContent fullscreen>
         <IonSearchbar
           onIonChange={(e) => setName(e.detail.value!)}
@@ -90,7 +92,7 @@ const AddWine: React.FC = () => {
           <IonRow>
             <IonCol>
               {selectedWines.map(wine => (
-                <IonButton size="small" onClick={() => deleteWine(wine)}>
+                <IonButton size="small" onClick={() => deleteWine(wine)} key={wine.id}>
                   <IonIcon slot="start" icon={closeCircle} />
                   {wine.name.substring(0, 20)}...
                 </IonButton>

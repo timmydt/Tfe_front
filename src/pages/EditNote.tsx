@@ -119,20 +119,21 @@ const EditNote: React.FC = () => {
               style={{ display: "none" }}
               onChange={setImage}
             />
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
+              <IonButton size="small" fill="outline" expand="block" onClick={openFileDialog}>
+                Camera
+              </IonButton>
+              <IonButton
+                size="small"
+                color="primary"
+                expand="block"
+                slot="end"
+                onClick={editNote}
+              >
+                Edit note
+              </IonButton>
+            </div>
           </IonCardContent>
-          <IonItem>
-            <IonButton fill="outline" expand="block" onClick={openFileDialog}>
-              Camera
-            </IonButton>
-            <IonButton
-              color="primary"
-              expand="block"
-              slot="end"
-              onClick={editNote}
-            >
-              Edit note
-            </IonButton>
-          </IonItem>
         </IonCard>
       </IonContent>
     </IonPage>

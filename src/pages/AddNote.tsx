@@ -1,5 +1,7 @@
 import {
+  IonBackButton,
   IonButton,
+  IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -68,6 +70,9 @@ const AddNote = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref="/home" />
+          </IonButtons>
           <IonTitle>Add a new note</IonTitle>
         </IonToolbar>
       </IonHeader>
@@ -93,12 +98,11 @@ const AddNote = () => {
                 style={{ display: "none" }}
                 onChange={setImage}
               />
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <IonButton size="small" fill="outline" expand="block" onClick={openFileDialog}>Camera</IonButton>
+                <IonButton size="small" color="primary" expand="block" slot="end"  onClick={createNote}>Create note</IonButton>
+              </div>
             </IonCardHeader>
-            <IonItem>
-              <IonButton fill="outline" expand="block" onClick={openFileDialog}>Camera</IonButton>
-              <IonButton fill="outline" color="danger" expand="block" routerLink="/home">Cancel</IonButton>
-              <IonButton color="primary" expand="block" slot="end"  onClick={createNote}>Create note</IonButton>
-            </IonItem>
           </IonCard>
         </IonGrid>
       </IonContent>
