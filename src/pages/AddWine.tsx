@@ -136,8 +136,8 @@ const AddWine: React.FC = () => {
           </IonRow>
         </IonGrid>
       </IonContent>
-      {selectedWines.length > 0 && (
-        <IonFooter className="ion-no-border">
+      <IonFooter className="ion-no-border">
+      {selectedWines.length > 0 ? (
           <IonButton
             expand="block"
             onClick={addWineToCave}
@@ -145,8 +145,16 @@ const AddWine: React.FC = () => {
           >
             Ajouter {selectedWines.length} vins
           </IonButton>
-        </IonFooter>
+      ) : (
+          <IonButton
+            expand="block"
+            routerLink={`/cave/add/wine/${id}`}
+            style={{ marginLeft: 5, marginRight: 5 }}
+          >
+            Créer une bouteille
+          </IonButton>
       )}
+      </IonFooter>
     </IonPage>
   );
 };
