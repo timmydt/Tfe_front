@@ -101,10 +101,11 @@ const EditWine: React.FC = () => {
   async function handleRating(value: number) {
     setRating(value)
 
-    await axiosInstance.post('/wine/rate', { rating, id })
+    await axiosInstance.post('/wine/rate', { rating: value, id })
+
     present({
       buttons: [{ text: 'Ok', handler: dismiss}],
-      message: `Noté à ${rating} étoiles`,
+      message: `Noté à ${value} étoiles`,
       color: 'success',
       duration: 1000
     })
