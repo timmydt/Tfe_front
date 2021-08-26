@@ -32,6 +32,8 @@ import Note from "./pages/Note";
 import EditNote from "./pages/EditNote";
 import AddWine from "./pages/AddWine";
 import CreateWine from "./pages/CreateWine";
+import ExportCSV from "./pages/ExportCsv";
+import EditWine from "./pages/EditWine";
 
 const App: React.FC = () => {
   return (
@@ -48,8 +50,10 @@ const App: React.FC = () => {
             <Route exact path="/cave/:id" component={ListCave} />
             <Route exact path="/cave/add/:id" component={AddWine} />
             <Route exact path="/cave/add/wine/:id" component={CreateWine} />
+            <Route exact path="/wine/edit/:id" component={EditWine} />
             <Route exact path="/note/:id" component={Note} />
             <Route exact path="/note/edit/:id" component={EditNote} />
+            <Route exact path="/csv/export" component={ExportCSV} />
             <Route path="*" component={NotFound} />
           </Switch>
         </IonRouterOutlet>

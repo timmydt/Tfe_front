@@ -6,10 +6,12 @@ import {
   IonCardTitle,
   IonCol,
   IonContent,
+  IonFooter,
   IonGrid,
   IonHeader,
   IonItem,
   IonItemDivider,
+  IonLabel,
   IonList,
   IonPage,
   IonRouterLink,
@@ -61,66 +63,56 @@ const AuthTest = () => {
           <IonTitle>You are logged in ! </IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>        
-        <IonGrid>
-          <IonRow style={{ marginTop: isPlatform('ios') ? 20 : 0 }}>
-            <IonCol>
-              <IonTitle>
-                My caves
-                <IonRouterLink routerLink="/createCave">
-                  <IonCardSubtitle>Ajouter une cave</IonCardSubtitle>
-                </IonRouterLink>
-              </IonTitle>
-            </IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol>
-              {caves.map((cave) => (
-                <IonCard routerLink={"/cave/" + cave.id} key={cave.id}>
-                  <div style={{ padding: 15 }}>
-                    <IonCardSubtitle>
-                      ({cave.bottles.length} bouteilles)
-                    </IonCardSubtitle>
-                    <IonCardTitle>{cave.name}</IonCardTitle>
-                  </div>
-                </IonCard>
-              ))}
-            </IonCol>
-          </IonRow>
+      <IonContent fullscreen>
+        <div style={{ padding: 8 }}>
+          <IonLabel>
+            <h1>My caves</h1>
+            <IonRouterLink routerLink="/createCave">
+              <h2>Ajouter une cave</h2>
+            </IonRouterLink>
+          </IonLabel>
 
-          <IonRow>
-            <IonCol>
-              <IonTitle style={{ marginBottom: 10 }}>
-                My notes
-                <IonRouterLink routerLink="/createNote">
-                  <IonCardSubtitle>Ajouter une note</IonCardSubtitle>
-                </IonRouterLink>
-              </IonTitle>
-            </IonCol>
-          </IonRow>
+          {caves.map((cave) => (
+            <IonCard routerLink={"/cave/" + cave.id} key={cave.id}>
+              <div style={{ padding: 15 }}>
+                <IonCardSubtitle>
+                  ({cave.bottles.length} bouteilles)
+                </IonCardSubtitle>
+                <IonCardTitle>{cave.name}</IonCardTitle>
+              </div>
+            </IonCard>
+          ))}
 
-          <IonRow>
-            <IonCol>
-              {notes.map((note) => (
-                <IonCard routerLink={`/note/${note.id}`} key={note.id}>
-                  <img src={note.picture} alt="" />
-                  <IonCardHeader>
-                    <IonCardSubtitle>Ma note</IonCardSubtitle>
-                    <IonCardTitle>{note.name}</IonCardTitle>
-                  </IonCardHeader>
-                </IonCard>
-              ))}
-            </IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol>
-              <IonButton onClick={logout} routerLink="/">
-                Logout
-              </IonButton>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
+          <IonLabel style={{ marginBottom: 10 }}>
+            <h1>My notes</h1>
+            <IonRouterLink routerLink="/createNote">
+              <h2>Ajouter une note</h2>
+            </IonRouterLink>
+          </IonLabel>
+
+          {notes.map((note) => (
+            <IonCard routerLink={`/note/${note.id}`} key={note.id}>
+              <img src={note.picture} alt="" />
+              <IonCardHeader>
+                <IonCardSubtitle>Ma note</IonCardSubtitle>
+                <IonCardTitle>{note.name}</IonCardTitle>
+              </IonCardHeader>
+            </IonCard>
+          ))}
+
+          <IonButton onClick={logout} routerLink="/">
+            Logout
+          </IonButton>
+        </div>
       </IonContent>
+      <IonFooter>
+        <IonButton
+          expand="block"
+          routerLink="/csv/export"
+          style={{ marginLeft: 5, marginRight: 5 }}>
+          Export CSV
+        </IonButton>
+      </IonFooter>
     </IonPage>
   );
 };

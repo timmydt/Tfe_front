@@ -5,6 +5,7 @@ import {
   IonCard,
   IonCardContent,
   IonCardHeader,
+  IonCardSubtitle,
   IonCardTitle,
   IonCol,
   IonContent,
@@ -21,7 +22,7 @@ import {
   IonToolbar,
   useIonToast,
 } from "@ionic/react";
-import { checkmark, checkmarkCircle, trash } from "ionicons/icons";
+import { checkmark, checkmarkCircle, pencil, star, trash } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { axiosInstance } from "../helpers/axios";
@@ -82,9 +83,14 @@ const ListCave = () => {
                 <IonCard key={bottle.name}>
                   {bottle.picture && <img alt="bouteille" src={bottle.picture} style={{ height: 200, width: '100%', objectFit: 'cover' }} />}
                   <IonCardHeader>
-                    <IonCardTitle>Name : {bottle.name}</IonCardTitle>
+                    <IonCardTitle>{bottle.name}</IonCardTitle>
+                    <IonCardSubtitle>
+                      <h4 style={{ marginTop: 5, marginBottom: 0, alignItems: 'center', display: 'flex' }}>{bottle.rating} <IonIcon icon={star} style={{ color: 'yellow', marginLeft: 4 }} size="small" /></h4>
+                    </IonCardSubtitle>
                   </IonCardHeader>
                   <IonCardContent>
+                    Quantité: {bottle.quantity}
+                    <br />
                     Best before : {bottle.best_before}
                     <br />
                     Food combination : {bottle.food}
@@ -96,6 +102,9 @@ const ListCave = () => {
                     Year : {bottle.year}
                     <br />
                     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                      <IonButton routerLink={`/wine/edit/${bottle.id}`} slot="end" size="small">
+                        <IonIcon icon={pencil} />
+                      </IonButton>
                       <IonButton onClick={() => deleteWine(bottle.id)} color="danger" slot="end" size="small">
                         <IonIcon icon={trash} />
                       </IonButton>

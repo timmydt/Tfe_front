@@ -5,6 +5,7 @@ import {
   IonContent,
   IonFooter,
   IonHeader,
+  IonIcon,
   IonInput,
   IonItem,
   IonLabel,
@@ -14,13 +15,15 @@ import {
   IonTitle,
   IonToolbar,
   useIonToast,
+  useIonViewDidEnter,
 } from "@ionic/react";
-import React, { useState } from "react";
+import { star } from "ionicons/icons";
+import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import { axiosInstance } from "../helpers/axios";
 import "./NotFound.css"
 
-const CreateWine: React.FC = () => {
+const EditWine: React.FC = () => {
   const { id } = useParams<{id: string}>()
   const [name, setName] = useState('')
   const [date, setDate] = useState('')
@@ -30,6 +33,8 @@ const CreateWine: React.FC = () => {
   const [maker, setMaker] = useState('')
   const [image, setImage] = useState()
   const [preview, setPreview] = useState()
+  const [rating, setRating] = useState(0)
+  const [quantity, setQuantity] = useState()
   const [present, dismiss] = useIonToast()
   const history = useHistory()
 
@@ -50,9 +55,10 @@ const CreateWine: React.FC = () => {
     setter(e.detail.value!)
   }
 
-  const createWine = async () => {
+  const editWine = async () => {
     const data = new FormData()
 
+    data.append('id', id)
     data.append('name', name)
     data.append('best_before', date)
     data.append('food', food.split('\r').join('|'))
@@ -60,21 +66,47 @@ const CreateWine: React.FC = () => {
     data.append('maker', maker)
     data.append('picture', image)
     data.append('year', year)
-    data.append('caveId', id)
+    data.append('quantity', quantity)
 
-    await axiosInstance.post('/wine/create', data, {
+    await axiosInstance.put('/wine', data, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     })
 
-    history.replace(`/cave/${id}`)
+    history.goBack()
 
     present({
       buttons: [{ text: 'Ok', handler: dismiss}],
-      message: 'Vin crée',
+      message: 'Vin edité!',
       color: 'success',
       duration: 3000
+    })
+  }
+
+  useIonViewDidEnter(async () => {
+    const { data: wine } = await axiosInstance.get(`/wine/${id}`)
+
+    setName(wine.name)
+    setDate(wine.best_before)
+    setFood(wine.food)
+    setGrapes(wine.grapes)
+    setYear(wine.year)
+    setPreview(wine.picture)
+    setMaker(wine.maker)
+    setRating(wine.rating)
+    setQuantity(wine.quantity)
+  }, [])
+
+  async function handleRating(value: number) {
+    setRating(value)
+
+    await axiosInstance.post('/wine/rate', { rating, id })
+    present({
+      buttons: [{ text: 'Ok', handler: dismiss}],
+      message: `Noté à ${rating} étoiles`,
+      color: 'success',
+      duration: 1000
     })
   }
 
@@ -90,6 +122,10 @@ const CreateWine: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         <IonList>
+          <IonItem>
+            <IonLabel position="stacked">Quantity</IonLabel>
+            <IonInput value={quantity} type="number" onIonChange={setText(setQuantity)}></IonInput>
+          </IonItem>
           <IonItem>
             <IonLabel position="stacked">Name</IonLabel>
             <IonInput value={name} onIonChange={setText(setName)}></IonInput>
@@ -112,7 +148,7 @@ const CreateWine: React.FC = () => {
           </IonItem>
           <IonItem>
             <IonLabel position="stacked">Picture</IonLabel>
-            {image ? (
+            {(image || preview) ? (
               <img src={preview} alt="" onClick={openFileDialog} />
             ) : (
               <IonButton onClick={openFileDialog}>Caméra</IonButton>
@@ -131,16 +167,49 @@ const CreateWine: React.FC = () => {
         </IonList>
       </IonContent>
       <IonFooter>
+        <div style={{ alignItems: 'center', display: 'flex', marginLeft: 8 }}>
+          <span><h3 style={{ margin: 0, marginRight: 5 }}>Note: </h3></span>
+          <IonIcon
+            icon={star}
+            style={{ color: rating >= 1 ? 'yellow' : 'grey' }}
+            size="large"
+            onClick={() => handleRating(1)}
+          />
+          <IonIcon
+            icon={star}
+            style={{ color: rating >= 2 ? 'yellow' : 'grey' }}
+            size="large"
+            onClick={() => handleRating(2)}
+          />
+          <IonIcon
+            icon={star}
+            style={{ color: rating >= 3 ? 'yellow' : 'grey' }}
+            size="large"
+            onClick={() => handleRating(3)}
+          />
+          <IonIcon
+            icon={star}
+            style={{ color: rating >= 4 ? 'yellow' : 'grey' }}
+            size="large"
+            onClick={() => handleRating(4)}
+          />
+          <IonIcon
+            icon={star}
+            style={{ color: rating >= 5 ? 'yellow' : 'grey' }}
+            size="large"
+            onClick={() => handleRating(5)}
+          />
+        </div>
         <IonButton
           expand="block"
-          onClick={createWine}
+          onClick={editWine}
           style={{ marginLeft: 5, marginRight: 5 }}
         >
-          Valider
+          Editer
         </IonButton>
       </IonFooter>
     </IonPage>
   );
 };
 
-export default CreateWine;
+export default EditWine;

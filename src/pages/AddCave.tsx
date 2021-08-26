@@ -1,8 +1,13 @@
 import {
+  IonBackButton,
   IonButton,
+  IonButtons,
   IonContent,
+  IonFooter,
   IonHeader,
   IonInput,
+  IonItem,
+  IonLabel,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -36,18 +41,31 @@ const AddCave = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref="/home" />
+          </IonButtons>
           <IonTitle>Add a new cave</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonInput
-          value={name}
-          placeholder="Cave name (*)"
-          onIonChange={(e) => setName(e.detail.value!)}
-        ></IonInput>
-        <IonButton onClick={createCave}>Create cave</IonButton>
-        <IonButton routerLink="/home">Cancel</IonButton>
+        <IonItem>
+          <IonLabel position="stacked">Name</IonLabel>
+          <IonInput
+            value={name}
+            placeholder="Cave name (*)"
+            onIonChange={(e) => setName(e.detail.value!)}
+          ></IonInput>
+        </IonItem>
       </IonContent>
+      <IonFooter>
+        <IonButton
+          expand="block"
+          onClick={createCave}
+          disabled={!name}
+          style={{ marginLeft: 5, marginRight: 5 }}>
+          Créer la cave
+        </IonButton>
+      </IonFooter>
     </IonPage>
   );
 };
