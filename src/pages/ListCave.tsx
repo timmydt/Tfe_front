@@ -25,6 +25,7 @@ import {
 import { checkmark, checkmarkCircle, pencil, star, trash } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { decode } from "../decode";
 import { axiosInstance } from "../helpers/axios";
 
 const ListCave = () => {
@@ -32,12 +33,22 @@ const ListCave = () => {
   const [cave, setCave] = useState<any>()
   const [name, setName] = useState<any>()
   const [present, dismiss] = useIonToast()
+  const [owner, setOwner] = useState(false)
 
   async function getCave() {
     const data = await axiosInstance.get("/cave/" + id);
     setCave(data.data)
     setName(data.data.name)
   }
+
+  useEffect(() => {
+    if (cave) {
+      const storedToken = localStorage.getItem('token')
+      const token = decode(storedToken)
+      
+      setOwner(token.id === cave.creatorId)
+    } 
+  }, [cave])
 
   useEffect(() => {
     getCave()
@@ -69,10 +80,16 @@ const ListCave = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/home" />
           </IonButtons>
-          <IonInput style={{ marginLeft: 10 }} value={name} onIonChange={(e) => setName(e.detail.value!)} />
-          <IonButtons slot="end">
-            <IonIcon onClick={updateCaveName} icon={checkmark} size="large" style={{ marginRight: 10 }} />
-          </IonButtons>
+          {owner ? (
+            <>
+              <IonInput style={{ marginLeft: 10 }} value={name} onIonChange={(e) => setName(e.detail.value!)} />
+              <IonButtons slot="end">
+                <IonIcon onClick={updateCaveName} icon={checkmark} size="large" style={{ marginRight: 10 }} />
+              </IonButtons>
+            </>
+          ) : (
+            <IonTitle>{cave?.name}</IonTitle>
+          )}
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -101,14 +118,16 @@ const ListCave = () => {
                     <br />
                     Year : {bottle.year}
                     <br />
-                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                      <IonButton routerLink={`/wine/edit/${bottle.id}`} slot="end" size="small">
-                        <IonIcon icon={pencil} />
-                      </IonButton>
-                      <IonButton onClick={() => deleteWine(bottle.id)} color="danger" slot="end" size="small">
-                        <IonIcon icon={trash} />
-                      </IonButton>
-                    </div>
+                    {owner && (
+                      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <IonButton routerLink={`/wine/edit/${bottle.id}`} slot="end" size="small">
+                          <IonIcon icon={pencil} />
+                        </IonButton>
+                        <IonButton onClick={() => deleteWine(bottle.id)} color="danger" slot="end" size="small">
+                          <IonIcon icon={trash} />
+                        </IonButton>
+                      </div>
+                    )}
                   </IonCardContent>
                 </IonCard>
               ))}
@@ -116,11 +135,14 @@ const ListCave = () => {
           </IonRow>
         </IonGrid>
       </IonContent>
-      <IonFooter>
-        <IonToolbar>
-          <IonButton expand="block" routerLink={'/cave/add/'+id}>Add Wine</IonButton>
-        </IonToolbar>
-      </IonFooter>
+      {owner && (
+        <IonFooter>
+          <IonToolbar>
+            <IonButton expand="block" routerLink={'/cave/share/'+id}>Exporter la cave</IonButton>
+            <IonButton expand="block" routerLink={'/cave/add/'+id}>Add Wine</IonButton>
+          </IonToolbar>
+        </IonFooter>
+      )}
     </IonPage>
   );
 };

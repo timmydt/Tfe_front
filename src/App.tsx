@@ -34,6 +34,7 @@ import AddWine from "./pages/AddWine";
 import CreateWine from "./pages/CreateWine";
 import ExportCSV from "./pages/ExportCsv";
 import EditWine from "./pages/EditWine";
+import AddUser from "./pages/AddUser";
 
 const App: React.FC = () => {
   return (
@@ -49,6 +50,7 @@ const App: React.FC = () => {
             <Route path="/recover" component={RecoverPassword} />
             <Route exact path="/cave/:id" component={ListCave} />
             <Route exact path="/cave/add/:id" component={AddWine} />
+            <Route exact path="/cave/share/:id" component={AddUser} />
             <Route exact path="/cave/add/wine/:id" component={CreateWine} />
             <Route exact path="/wine/edit/:id" component={EditWine} />
             <Route exact path="/note/:id" component={Note} />

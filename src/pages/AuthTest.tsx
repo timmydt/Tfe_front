@@ -32,6 +32,7 @@ import note from "../assets/note.jpg";
 const AuthTest = () => {
   const [caves, setCaves] = useState([])
   const [notes, setNotes] = useState([])
+  const [sharedCaves, setSharedCaves] = useState([])
 
   async function logout() {
     clearToken();
@@ -51,9 +52,15 @@ const AuthTest = () => {
     setNotes(data.data);
   }
 
+  async function getSharedCaves() {
+    const {data} = await axiosInstance.get("/sharedCaves")
+    setSharedCaves(data)
+  }
+
   useIonViewDidEnter(() => {
     getCaves();
     getNotes();
+    getSharedCaves()
   });
 
   return (
@@ -65,6 +72,25 @@ const AuthTest = () => {
       </IonHeader>
       <IonContent fullscreen>
         <div style={{ padding: 8 }}>
+          {sharedCaves.length > 0 && (
+            <>
+              <IonLabel>
+                <h1>Caves partagées</h1>
+              </IonLabel>
+
+              {sharedCaves.map((cave) => (
+                <IonCard routerLink={"/cave/" + cave.id} key={cave.id}>
+                  <div style={{ padding: 15 }}>
+                    <IonCardSubtitle>
+                      <strong>{cave.creator.username}</strong> - ({cave.bottles.length} bouteilles)
+                    </IonCardSubtitle>
+                    <IonCardTitle>{cave.name}</IonCardTitle>
+                  </div>
+                </IonCard>
+              ))}
+            </>
+          )}
+
           <IonLabel>
             <h1>My caves</h1>
             <IonRouterLink routerLink="/createCave">
