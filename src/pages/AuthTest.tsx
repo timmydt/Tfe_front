@@ -110,7 +110,7 @@ const AuthTest = () => {
           expand="block"
           routerLink="/csv/export"
           style={{ marginLeft: 5, marginRight: 5 }}>
-          Export CSV
+          CSV
         </IonButton>
       </IonFooter>
     </IonPage>
